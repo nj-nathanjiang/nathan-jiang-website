@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Book</title>
+    <link rel="stylesheet" href="/coffee_css/styles.css">
+</head>
+<body style="text-align: center">
+    {% import "bootstrap/wtf.html" as wtf %}
+    {{ wtf.quick_form(form, novalidate=True) }}
+</body>
+</html>

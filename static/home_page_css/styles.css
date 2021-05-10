@@ -1,0 +1,163 @@
+/* Basic Tags */
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+    font-size: 2.75rem;
+    line-height: 1.5;
+    font-weight: 900;
+}
+
+h2 {
+    font-family: "Montserrat-bold", sans-serif;
+    font-size: 3rem;
+}
+
+/* Navigation Bar */
+
+.navbar {
+    padding-bottom: 4.5rem;
+}
+.navbar-my-navbar {
+    color: #0061a8;
+}
+
+.logo-text {
+    font-family: 'Ubuntu', sans-serif;
+    color: #2978b5;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1.5;
+}
+
+.btn-light {
+    background-color: #fbe0c4;
+}
+
+.btn-primary {
+    background-color: #2978b5;
+}
+
+.nav-item {
+    padding: 0 20px;
+}
+
+.nav-link {
+    font-size: 1.2rem;
+    font-family: 'Montserrat-Light', sans-serif;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}
+
+/* Download Buttons */
+
+.download-btn {
+    margin: 5% 3% 5% 0;
+}
+
+/* Title */
+
+.title-img {
+    width: 60%;
+    padding-top: 25%;
+    transform: rotate(15deg);
+}
+
+#title {
+    background-color: #fbe0c4;
+    padding: 5% 10% 10% 20%;
+    color: #fff;
+}
+
+/* Features */
+
+#features {
+    color: #8f8f8f;
+    padding: 15% 20% 15% 22%;
+}
+
+.feature-image {
+    color: #2978b5;
+}
+
+.feature-image:hover {
+    color: #0061a8;
+}
+
+.feature {
+    margin: 10px 0;
+}
+
+.feature-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000000;
+}
+
+/* Testimonial Section */
+
+#testimonials {
+    text-align: center;
+    background-color: #fbe0c4;
+    color: #FFFFFF;
+}
+
+.carousel-item {
+    padding: 10% 18%;
+}
+
+.card-body {
+    margin: 10% 5%;
+}
+
+/* Pricing */
+
+#pricing {
+    padding: 100px;
+}
+
+/* Media Queries*/
+
+@media (max-width: 1028px) {
+    #title {
+        text-align: center;
+    }
+}
+
+/* Call to Action */
+
+#cta {
+    font-family: "Montserrat-Black", sans-serif;
+    text-align: center;
+    background-color: #fbe0c4;
+    padding: 8% 5%;
+}
+
+/* Footer */
+
+#page-container {
+    position: relative;
+    min-height: 100vh;
+}
+
+#content-wrap {
+    padding-bottom: 2.5rem;    /* Footer height */
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;
+    margin: 4%;
+}

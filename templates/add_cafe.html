@@ -1,0 +1,22 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}Add A New Cafe{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="/coffee_css/styles.css">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-8">
+
+            <h1>Add a new cafe into the database</h1>
+
+            {% import "bootstrap/wtf.html" as wtf %}
+            {{ wtf.quick_form(form, novalidate=True) }}
+
+	        <p class="space-above"><a href="/cafe/cafes">See all cafes</a></p>
+
+        </div>
+    </div>
+</div>
+{% include "footer.html" %}
+{% endblock %}

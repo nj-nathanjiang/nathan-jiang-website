@@ -1,0 +1,38 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}Restaurants{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="/coffee_css/styles.css">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+
+            <h1>All Cafes</h1>
+
+            <table class="table">
+                {% for cafe in cafes %}
+                    <tr>
+                    {% for i in range(7) %}
+                        {% if "http" in cafe[i] %}
+                            <td>
+                                <a href="{{ cafe[1] }}">{{ cafe[1] }}</a>
+                            </td>
+                        {% else %}
+                            <td>
+                                {{ cafe[i] }}
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+
+            <p><a href="/cafe">Go To Coffee And Wifi Homepage</a></p>
+
+        </div>
+    </div>
+</div>
+{% include "footer.html" %}
+{% endblock %}

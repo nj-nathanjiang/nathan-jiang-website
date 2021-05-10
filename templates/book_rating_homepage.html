@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/coffee_css/styles.css">
+</head>
+<body style="font-family: serif">
+<h1 style="font-family: serif">My Library</h1>
+    {% if ratings == [] %}
+        <p>Library is Empty</p>
+    {% else %}
+        <ul>
+            {% for rating in ratings %}
+                <li>{{ rating['title'] }} - {{ rating['author'] }} - {{ rating['rating'] }}/10</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
