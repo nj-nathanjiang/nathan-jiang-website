@@ -26,15 +26,9 @@ MY_PASSWORD = os.environ['MY_PASSWORD']
 app = Flask(__name__)
 ckeditor = CKEditor(app)
 Bootstrap(app)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 app.password = "abcde13579"
-app.config['SQLALCHEMY_BINDS'] = {
-    'movies': 'sqlite:///movies.db',
-    'book_collection': 'sqlite:///new-books-collection.db',
-    'cafes': 'sqlite:///cafes.db',
-    'posts': 'sqlite:///posts.db',
-    'user': 'sqlite:///users.db'
-}
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///blog.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -51,8 +45,6 @@ def check_admin():
 
 # CONFIGURE TABLE
 class BlogPost(db.Model):
-    __bind_key__ = "posts"
-
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(250), unique=True, nullable=False)
     subtitle = db.Column(db.String(250), nullable=False)
@@ -63,17 +55,17 @@ class BlogPost(db.Model):
     comments = []
 
 
-db.create_all(bind="posts")
+db.create_all()
 db.session.commit()
 
 
 class Comment(db.Model):
-    __bind_key__ = "user"
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.Text, nullable=False)
 
 
-db.create_all(bind="user")
+db.create_all()
+db.session.commit()
 
 
 # WTForm
@@ -106,7 +98,7 @@ def post_detail(post_id):
             if post.id == post_id:
                 post.comments.append(new_comment)
         db.session.add(new_comment)
-        db.create_all(bind="user")
+        db.create_all()
         db.session.commit()
     for post in db.session.query(BlogPost).all():
         if post.id == post_id:
@@ -125,7 +117,7 @@ def blog_home():
 @login_required
 def new_post():
     if current_user.id != 1:
-        return redirect(f"/blog")
+        return redirect("/blog")
     else:
         form = CreatePostForm()
         if form.validate_on_submit():
@@ -274,15 +266,13 @@ class AddBook(FlaskForm):
 
 
 class BookReview(db.Model):
-    __bind_key__ = 'book_collection'
-
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(250), unique=True, nullable=False)
     author = db.Column(db.String(250), nullable=False)
     rating = db.Column(db.Float, nullable=False)
 
 
-db.create_all(bind='book_collection')
+db.create_all()
 db.session.commit()
 
 
@@ -307,7 +297,6 @@ def movies():
 
 
 class MovieList(db.Model):
-    __bind_key__ = 'movies'
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     title = db.Column(db.String(250), unique=True, nullable=False)
     year = db.Column(db.Integer, nullable=False)
@@ -323,7 +312,7 @@ def add_movie():
     form = AddMovie()
     if form.validate_on_submit():
         movie = MovieList(title=f"{request.form.get('movie_name')}",
-                          year=f"{request.form.get('year')}",
+                          year=int(request.form.get('year')),
                           description=f"{request.form.get('description')}",
                           rating=float(f"{request.form.get('rating')}"),
                           ranking=int(f"{request.form.get('ranking')}"),
@@ -336,7 +325,6 @@ def add_movie():
 
 
 class AddMovie(FlaskForm):
-
     movie_name = StringField(label="Movie Name", validators=[DataRequired()])
     year = IntegerField(label="Release Year", validators=[DataRequired()])
     description = StringField(label="Movie Description", validators=[DataRequired()])
@@ -347,13 +335,11 @@ class AddMovie(FlaskForm):
     submit = SubmitField('Add Movie')
 
 
-db.create_all(bind="movies")
+db.create_all()
 db.session.commit()
 
 
 class Cafe(db.Model):
-    __bind_key__ = 'cafes'
-
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(250), unique=True, nullable=False)
     map_url = db.Column(db.String(500), nullable=False)
@@ -367,7 +353,7 @@ class Cafe(db.Model):
     coffee_price = db.Column(db.String(250), nullable=True)
 
 
-db.create_all(bind='cafes')
+db.create_all()
 
 
 @app.route("/cafeapi")
@@ -417,8 +403,7 @@ def all_cafe():
             }
         )
 
-    return jsonify(cafes=[cafe_details for cafe_details in list_of_cafe_details])\
-
+    return jsonify(cafes=[cafe_details for cafe_details in list_of_cafe_details])
 
 
 @app.route("/cafeapi/search", methods=["GET"])
@@ -508,15 +493,13 @@ def delete_record(cafe_id):
 
 
 class User(UserMixin, db.Model):
-    __bind_key__ = 'user'
-
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(250), nullable=False)
     email = db.Column(db.String(500), unique=True, nullable=False)
     password = db.Column(db.String(500), nullable=False)
 
 
-db.create_all(bind="user")
+db.create_all()
 db.session.commit()
 
 
