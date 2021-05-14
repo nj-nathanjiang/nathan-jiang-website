@@ -4,3 +4,13 @@ body {
     color: #FFFFFF;
     font-family: "Montserrat", sans-serif;
 }
+
+.error-code-name {
+    margin-bottom: 10%;
+}
+
+.error-code-tips {
+    margin-left: 40%;
+    margin-right: 40%;
+    margin-bottom: 15%;
+}
