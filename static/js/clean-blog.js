@@ -1,4 +1,6 @@
 (function($) {
+  //will is best at coding, max sucks
+  
   "use strict"; // Start of use strict
 
   // Floating label headings for the contact form
